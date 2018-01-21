@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <title>Document</title>
+  <script src="assets/js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+  <div class="contenido">
+    <h1>Artículos</h1>
+    <div id="notas">
+      <!-- contenido -->
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script>
+    var jqxhr = $.ajax("http://localhost/webservices/data/prueba1.json");
+
+
+    jqxhr.done(function (response) {
+
+        var titulo = "";
+        for (var i = 0; i < response.data.length; i++) {
+          titulo +=
+            `
+            <div class="row">
+                <div class="col s12 m7 l8 offset-l2">
+                  <div class="card" id="card">
+                    <div class="card-image">
+                      <img src="${response.data[i].images.principal[0].url}">
+                      <span class="card-title"> ${response.data[i].title}  </span>
+                    </div>
+                    <div class="card-content" id="title">
+                      <p>${response.data[i].body}</p>
+                    </div>
+                    <div class="card-action">
+                      <a href="${response.data[i].url}">fuente</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                    `
+          console.log(response.data[i].images.principal[0].url);
+          $("#notas").html(titulo)
+        }
+
+        //alert("success");
+      })
+      .fail(function () {
+        //alert("error");
+      })
+      .always(function () {
+        //alert("complete");
+      })
+  </script>
+
+</body>
+
+</html>
